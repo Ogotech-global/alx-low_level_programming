@@ -5,7 +5,7 @@
  */
 int main(void)
 {
-	int singleDigBaseTen
+	int singleDigBaseTen;
 	for (singleDigBaseTen = 0; singleDigBaseTen < 10; singleDigBaseTen++)
 	{
 		printf("%d", singleDigBaseTen);
