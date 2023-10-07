@@ -1,15 +1,15 @@
 #include <stdio.h>
 /**
- * main - Print alphabet without char and use
- * Return: always (0)
+ * main - Print numbers from '0' to '9' putchar
+ * Return: always 0
  */
 int main(void)
 {
-	int alphabets = '0';
+	int num;
 
-	while (alphabets <= '9')
+	for (num = 0; num <= 10; num++)
 	{
-		putchar(alphabets);
+		putchar(num + '0');
 	}
 	putchar('\n');
 	return (0);
