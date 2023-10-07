@@ -5,10 +5,10 @@
  */
 int main(void)
 {
-	int singleDigBaseTen;
-	for (singleDigBaseTen = 0; singleDigBaseTen < 10; singleDigBaseTen++)
+	int i;
+	for (i = 0; i <= 9; i++)
 	{
-		printf("%d", singleDigBaseTen);
+		printf("%d", i;
 	}
 	printf("\n");
 	return (0);
