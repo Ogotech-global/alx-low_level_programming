@@ -4,29 +4,37 @@
 
 #define PASSWORD_LENGTH 12
 
-char generateRandomChar() {
-	/* Generate a random character from '!' to '~' in ASCII */
+/**
+ * generateRandomChar - Generates a random printable ASCII character
+ *
+ * Return: A random printable ASCII character
+ */
+char generateRandomChar(void)
+{
     return (char) ('!' + rand() % 94);
 }
 
+/**
+ * main - Generates a random password
+ *
+ * Return: Always 0 (Success)
+ */
 int main(void)
+{
+    srand((unsigned int) time(NULL));
 
-	{
-	srand(time(0)); /* Seed the random number generator */
+    char password[PASSWORD_LENGTH + 1];  /* +1 for null terminator */
+    int i;
 
-	char password[PASSWORD_LENGTH + 1];/* +1 for null terminator*/
+    for (i = 0; i < PASSWORD_LENGTH; i++)
+    {
+        password[i] = generateRandomChar();
+    }
 
-    /* Generate random characters for the password */
-	for (int i = 0; i < PASSWORD_LENGTH; i++) 
-	{
-	password[i] = generateRandomChar();
-	}
+    password[PASSWORD_LENGTH] = '\0';  /* Add null terminator */
 
-	password[PASSWORD_LENGTH] = '\0'; 
-	/* Add null terminator*/
+    printf("%s\n", password);
 
-	printf("%s\n", password);
-
-	return 0;
+    return 0;
 }
 
