@@ -22,7 +22,8 @@ int main(void)
 	password[i] = generateRandomChar();
 	}
 
-	password[PASSWORD_LENGTH] = '\0'; // Add null terminator
+	password[PASSWORD_LENGTH] = '\0'; 
+	/* Add null terminator*/
 
 	printf("%s\n", password);
 
