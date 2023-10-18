@@ -1,46 +1,30 @@
 #include "main.h"
 
 /**
- * cap_string - Capitalizes all words in a string.
- * @str: The string to capitalize.
+ * cap_string - Capitalizes all words of a string.
+ * @str: The string to be capitalized.
  *
- * Return: A pointer to the resulting string.
+ * Return: A pointer to the changed string.
  */
 char *cap_string(char *str)
 {
-	int i;
-	char separators[] = " \t\n,;.!?\"(){}";
-	int capitalize = 1;
-/* Flag to indicate if the next character should be capitalized */
+	int index = 0;
 
-	for (i = 0; str[i] != '\0'; i++)
+	while (str[index])
 	{
-	if (capitalize && (str[i] >= 'a' && str[i] <= 'z'))
-	str[i] -= ('a' - 'A');
-
-	capitalize = is_separator(separators, str[i]);
+	if (index == 0 || str[index - 1] == ' ' || str[index - 1] == '\t' ||
+	str[index - 1] == '\n' || str[index - 1] == ',' || str[index - 1] == ';' ||
+	str[index - 1] == '.' || str[index - 1] == '!' || str[index - 1] == '?' ||
+	str[index - 1] == '"' || str[index - 1] == '(' || str[index - 1] == ')' ||
+	str[index - 1] == '{' || str[index - 1] == '}')
+	{
+	if (str[index] >= 'a' && str[index] <= 'z')
+	str[index] -= 32;  /* Convert to uppercase */
 	}
 
-	return (str);
-}
-
-/**
- * is_separator - Checks if a character is a separator.
- * @separators: The string of separators.
- * @c: The character to check.
- *
- * Return: 1 if the character is a separator, 0 otherwise.
- */
-int is_separator(char *separators, char c)
-{
-	int i;
-
-	for (i = 0; separators[i] != '\0'; i++)
-	{
-	if (separators[i] == c)
-	return (1);
+	index++;
 	}
 
-	return (0);
+return (str);
 }
 
