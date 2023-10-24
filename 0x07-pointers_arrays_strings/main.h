@@ -2,6 +2,7 @@
 #define MAIN_H
 #include <unistd.h>
 
+int _putchar(char c);
 void print_diagsums(int *a, int size);
 void print_number(int n);
 void print_char(char c);

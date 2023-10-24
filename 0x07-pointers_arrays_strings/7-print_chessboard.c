@@ -4,7 +4,6 @@
  * print_chessboard - prints the chessboard
  * @a: the chessboard array
  */
-char _putchar(char c);
 void print_chessboard(char (*a)[8])
 {
 	int i, j;
