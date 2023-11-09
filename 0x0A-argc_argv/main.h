@@ -4,5 +4,6 @@
 
 int _putchar(char c);
 int main(int argc, char *argv[]);
+void _puts(char *str);
 
 #endif

@@ -1,1 +1,1 @@
-This is the C Low level Programming Folder
+This repository all the project files under C programming language
