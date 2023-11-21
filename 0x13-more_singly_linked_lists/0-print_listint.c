@@ -12,9 +12,10 @@ size_t print_listint(const listint_t *h)
 
 	while (h != NULL)
 	{
-	_putchar(h->n + '0');
-	_putchar('\n');
+	char digit = h->n + '0';
 
+	write(1, &digit, 1);
+	write(1, "\n", 1);
 	h = h->next;
 	node_count++;
 	}
