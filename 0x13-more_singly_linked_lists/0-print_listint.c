@@ -12,13 +12,13 @@ size_t print_listint(const listint_t *h)
 
 	while (h != NULL)
 	{
-	_putchar('0' + h->n);
+	_putchar(h->n + '0');
 	_putchar('\n');
 
 	h = h->next;
 	node_count++;
-    }
+	}
 
-    return (node_count);
+	return (node_count);
 }
 
