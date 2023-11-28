@@ -1,58 +1,64 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+ /**
+ * display_error - Prints an error message to the standard error
+ * @message: The error message format
+ * @file: The file name (can be NULL)
+ */
+void display_error(const char *message, const char *file)
+{
+	if (file != NULL)
+	dprintf(2, message, file);
+	else
+	dprintf(2, "%s", message);
+}
 
 /**
- * cp_file - Copies the content of a file to another file.
- * @file_from: The source file.
- * @file_to: The destination file.
- * Return: 0 on success, or exit with a specific code on failure.
+ * main - Entry point for the program
+ * @argc: The number of command-line arguments
+ * @argv: An array containing the command-line arguments
+ * Return: 0 on success, or an error code on failure
  */
-int cp_file(const char *file_from, const char *file_to)
+int main(int argc, char *argv[])
 {
 	int fd_from, fd_to, read_result, write_result;
 	char buffer[BUFFER_SIZE];
-	mode_t permissions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
-	if (!file_from || !file_to)
+	if (argc != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", file_from ? file_to : "unknown");
-		return (97);
+	display_error("Usage: cp file_from file_to\n", NULL);
+	return (97);
 	}
-	fd_from = open(file_from, O_RDONLY);
+	fd_from = open(argv[1], O_RDONLY);
 	if (fd_from == -1)
 	{
-		dprintf(2, "Error: Can't read from file %s\n", file_from);
-		return (98);
+	display_error("Error: Can't read from file %s\n", argv[1]);
+	return (98);
 	}
-	fd_to = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, permissions);
+	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
-	dprintf(2, "Error: Can't write to %s\n", file_to);
+	display_error("Error: Can't write to file %s\n", argv[2]);
 	close(fd_from);
 	return (99);
 	}
-	while ((read_result = read(fd_from, buffer, BUFFER_SIZE)) > 0)
+	while ((read_result = read(fd_from, buffer, BUFFER_SIZE)) > 0 &&
+	(write_result = write(fd_to, buffer, read_result)) == read_result)
+		;
+	if (read_result == -1 || write_result != read_result)
 	{
-	write_result = write(fd_to, buffer, read_result);
-	if (write_result != read_result)
-	{
-		dprintf(2, "Error: Can't write to %s\n", file_to);
-		close(fd_from);
-		close(fd_to);
-		return (99);
+	display_error(read_result == -1 ?
+		"Error: Can't read from file %s\n" : "Can't write to file %\n", argv[1]);
+	close(fd_from), close(fd_to);
+	return (read_result == -1 ? 98 : 99);
 	}
-	}
-	if (read_result == -1)
-	{
-		dprintf(2, "Error: Can't read from file %s\n", file_from);
-		close(fd_from);
-		close(fd_to);
-		return (98);
-	}
-	if (close(fd_from) == -1 || close(fd_to) == -1)
-	{
-	dprintf(2, "Error: Can't close fd %d\n", (fd_from == -1) ? fd_from : fd_to);
-	return (100);
-	}
+	close(fd_from), close(fd_to);
 	return (0);
 }
 
